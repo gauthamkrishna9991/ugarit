@@ -1,4 +1,4 @@
-from os import environ
+import os
 from typing import Any, Dict
 
 
@@ -8,7 +8,7 @@ class ServerConfig:
     """
 
     _debug: str = "debug"
-    debug: bool
+    debug: bool = os.environ["DEBUG"] == "1" if "DEBUG" in os.environ else False
 
     def __init__(self, debug: bool) -> None:
         self.debug = debug

@@ -14,7 +14,9 @@ borrower_address_router = APIRouter(prefix="/borrower_address")
 
 
 @borrower_address_router.post("/", response_model=model.BorrowerAddress)
-def create(borrower: model.BorrowerAddressCreate, db: Session = Depends(get_db)):
+def create(
+    borrower: model.BorrowerAddressCreate, db: Session = Depends(get_db)
+) -> model.BorrowerAddress:
     return crud.create(db, borrower)
 
 
@@ -22,5 +24,7 @@ def create(borrower: model.BorrowerAddressCreate, db: Session = Depends(get_db))
 
 
 @borrower_address_router.get("/{borrower_id}", response_model=model.BorrowerAddress)
-def get_by_id(borrower_id: str, db: Session = Depends(get_db)):
+def get_by_id(
+    borrower_id: str, db: Session = Depends(get_db)
+) -> model.BorrowerAddress | None:
     return crud.get_by_id(db, UUID(borrower_id))

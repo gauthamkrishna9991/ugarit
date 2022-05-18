@@ -41,7 +41,7 @@ borrower_router = APIRouter(prefix="/borrowers")
 @borrower_router.post("/", response_model=models_borrower.Borrower)
 def create(
     borrower: models_borrower.BorrowerCreate, db_session: Session = Depends(get_db)
-):
+) -> models_borrower.Borrower:
     """
     POST <BODY: BorrowerCreate> /
 
@@ -57,7 +57,9 @@ def create(
 
 # - GET /{id}
 @borrower_router.get("/{borrower_id}", response_model=models_borrower.Borrower)
-def get_by_id(borrower_id: UUID, db_session: Session = Depends(get_db)):
+def get_by_id(
+    borrower_id: UUID, db_session: Session = Depends(get_db)
+) -> models_borrower.Borrower:
     """
     GET /{id:UUID}
 
@@ -69,11 +71,11 @@ def get_by_id(borrower_id: UUID, db_session: Session = Depends(get_db)):
 
 
 # - PUT /
-@borrower_router.put("/", response_model=bool)
+@borrower_router.put("/", response_model=models_borrower.Borrower)
 def update(
     borrower: models_borrower.BorrowerUpdate,
     db_session: Session = Depends(get_db),
-):
+) -> models_borrower.Borrower:
     """
     PUT <BODY: BorrowerUpdate>
 
@@ -89,7 +91,7 @@ def update(
 def delete(
     borrower_to_delete: models_borrower.BorrowerDelete,
     db_session: Session = Depends(get_db),
-):
+) -> bool:
     """
     DELETE <BODY: BorrowerDelete>
 

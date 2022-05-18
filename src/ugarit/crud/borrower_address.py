@@ -11,7 +11,9 @@ from ugarit.schemas import borrower_address as schema
 # CREATE
 
 
-def create(db: Session, borrower_addr: model.BorrowerAddress):
+def create(
+    db: Session, borrower_addr: model.BorrowerAddressCreate
+) -> model.BorrowerAddress:
     if (
         db.query(schema.BorrowerAddress)
         .filter(schema.BorrowerAddress.id == borrower_addr.id)
@@ -38,7 +40,7 @@ def create(db: Session, borrower_addr: model.BorrowerAddress):
 # READ
 
 
-def get_by_id(db: Session, borrower_id: UUID):
+def get_by_id(db: Session, borrower_id: UUID) -> model.BorrowerAddress | None:
     return (
         db.query(schema.BorrowerAddress)
         .filter(schema.BorrowerAddress.id == borrower_id)

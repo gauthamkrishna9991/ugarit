@@ -8,6 +8,7 @@ class BorrowerAddressBase(BaseModel):
     address2: str
     city: str
     state: str
+    country: str
     zipcode: str
 
 

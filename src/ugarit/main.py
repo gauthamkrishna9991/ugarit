@@ -1,5 +1,6 @@
 # Standard Libraries
 import argparse
+import os
 
 # Uvicorn Run App
 from uvicorn import run
@@ -13,14 +14,15 @@ from ugarit.config import ServerConfig
 # Application Name
 APP_NAME = "ugarit.app:app"
 
+
 # Main Application
-def main():
+def main() -> None:
     """
     # Main Function
     """
     # Initialize Parser
     parser = argparse.ArgumentParser(
-        description="Main Server Application", exit_on_error=1
+        description="Main Server Application", exit_on_error=True
     )
     # Run Argument (--run/-r)
     parser.add_argument(
@@ -38,6 +40,8 @@ def main():
 
     # If command to run is given
     if args.run:
+        if args.debug:
+            os.environ["DEBUG"] = "1"
         config_args = {"debug": args.debug}
         config: ServerConfig = ServerConfig.cli_parse(config_args)
         if config.debug:

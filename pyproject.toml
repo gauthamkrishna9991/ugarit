@@ -21,6 +21,7 @@ black = {version = "^22.1.0", allow-prereleases = true}
 flake8 = "^4.0.1"
 pylint = "^2.13.5"
 mypy = "^0.942"
+pylint-pydantic = "^0.1.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

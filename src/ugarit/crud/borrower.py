@@ -25,6 +25,7 @@ from ugarit.models import borrower as borrower_model
 
 # - Borrower Schema Import
 from ugarit.schemas import borrower as borrower_schema
+from ugarit.schemas import borrower_address as borrower_address_schema
 
 
 # CREATE
@@ -38,7 +39,12 @@ def create(
 
     This function creates a borrower from a given BorrowerCreate Model.
     """
-    new_borrower = borrower_schema.Borrower(email=borrower.email)
+    new_borrower = borrower_schema.Borrower(
+        email=borrower.email,
+        first_name=borrower.first_name,
+        last_name=borrower.last_name,
+        date_of_birth=borrower.date_of_birth,
+    )
     db_session.add(new_borrower)
     db_session.commit()
     db_session.refresh(new_borrower)
@@ -91,6 +97,9 @@ def update(
         .update(
             {
                 borrower_schema.Borrower.email: borrower.email,
+                borrower_schema.Borrower.first_name: borrower.first_name,
+                borrower_schema.Borrower.last_name: borrower.last_name,
+                borrower_schema.Borrower.date_of_birth: borrower.date_of_birth,
             },
             synchronize_session=False,
         )
@@ -109,6 +118,14 @@ def delete(db_session: Session, borrower_id: UUID) -> bool:
 
     Delete a borrower given a Borrower ID as UUID.
     """
+    delete_address_result = (
+        db_session.query(borrower_address_schema.BorrowerAddress)
+        .filter(borrower_address_schema.BorrowerAddress.id == borrower_id)
+        .delete()
+        == 1
+    )
+    if delete_address_result:
+        db_session.commit()
     delete_result = (
         db_session.query(borrower_schema.Borrower)
         .filter(borrower_schema.Borrower.id == borrower_id)

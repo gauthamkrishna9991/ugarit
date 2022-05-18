@@ -12,6 +12,7 @@ class BorrowerAddress(Base):
     address2 = Column(String)
     city = Column(String)
     state = Column(String)
+    country = Column(String)
     zipcode = Column(String)
 
-    borrower = relationship("Borrower", back_populates="address", uselist=False)
+    borrower = relationship("Borrower", uselist=False)
