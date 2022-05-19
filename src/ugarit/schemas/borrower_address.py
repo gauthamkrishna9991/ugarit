@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
 schemas/borrower_address
 
@@ -25,7 +28,10 @@ from sqlalchemy.orm import relationship
 from .base import Base
 
 
-# - SCHEMA
+# -- SCHEMA
+
+
+# pylint: disable=too-few-public-methods
 class BorrowerAddress(Base):
     """
     BorrowerAddress Schema

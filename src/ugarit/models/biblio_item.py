@@ -12,12 +12,17 @@ This module has all BiblioItem HTTP Models.
 # -- IMPORTS: LIBRARIES
 
 # - Standard Library Imports
-# UUID Imports
+# Typing Imports: Optional
 from typing import Optional
+
+# UUID Imports
 from uuid import UUID
 
 # - Pydantic Imports
 from pydantic import BaseModel
+
+
+# -- MODELS
 
 
 class BiblioItemBase(BaseModel):
@@ -49,6 +54,7 @@ class BiblioItem(BiblioItemBase):
     # - ID
     id: UUID
 
+    # pylint: disable=too-few-public-methods
     class Config:
         """
         Config for BiblioItem
@@ -67,8 +73,6 @@ class BiblioItemCreate(BiblioItemBase):
 
     This is used to create BiblioItem from given HTTP Request.
     """
-
-    pass
 
 
 class BiblioItemUpdate(BiblioItemBase):

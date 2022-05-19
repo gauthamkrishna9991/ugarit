@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
 schema/borrower
 
@@ -23,6 +26,8 @@ from ugarit.database import Base
 
 
 # -- SCHEMA
+
+# pylint: disable=too-few-public-methods
 class Borrower(Base):
     """
     Borrower Schema
@@ -35,7 +40,7 @@ class Borrower(Base):
     # ID of the borrower (UUID type)
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     # Email ID of Borrower (organization given or personal, NEEDS TO BE UNIQUE)
-    email = Column(String, unique=True, nullable=False)
+    email = Column(String, unique=True, nullable=False, index=True)
     # First Name of Borrower
     first_name = Column(String)
     # Last Name of Borrower

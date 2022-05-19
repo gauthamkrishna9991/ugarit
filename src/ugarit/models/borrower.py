@@ -45,17 +45,40 @@ class Borrower(BorrowerBase):
 
     id: UUID
 
+    # pylint: disable=too-few-public-methods
     class Config:
+        """
+        Config
+
+        Module configuration for Borrower.
+        """
+
         orm_mode = True
 
 
 class BorrowerCreate(BorrowerBase):
-    pass
+    """
+    # BorrowerCreate Model
+
+    This model is used to deserizalize POST Request.
+    """
 
 
 class BorrowerUpdate(BorrowerBase):
+    """
+    # BorrowerUpdate Model
+
+    This model is used to Deseriazlize PUT Request.
+    """
+
     id: UUID
 
 
 class BorrowerDelete(BaseModel):
+    """
+    # BorrowerDelete Model
+
+    This model is used to Delete Borrower element. It only takes in a UUID.
+    """
+
     id: UUID

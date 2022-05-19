@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+main
+
+Application (CLI) Main Function
+
+This function launches the CLI/Executor for Server App.
+"""
+
 # Standard Libraries
 import argparse
 import os

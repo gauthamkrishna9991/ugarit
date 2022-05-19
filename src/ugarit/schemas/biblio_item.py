@@ -24,7 +24,10 @@ from sqlalchemy.dialects.postgresql import UUID
 from ugarit.database import Base
 
 
-# - SCHEMA
+# -- SCHEMA
+
+
+# pylint: disable=too-few-public-methods
 class BiblioItem(Base):
     """
     BiblioItem Schema

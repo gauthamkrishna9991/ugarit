@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """
 models/borrower_address
@@ -47,7 +48,12 @@ class BorrowerAddress(BorrowerAddressBase):
     This model is parsed and sent back for BorrowerAddress.
     """
 
+    # pylint: disable=too-few-public-methods
     class Config:
+        """
+        Config for BorrowerAddress Model
+        """
+
         orm_mode = True
 
 
@@ -55,11 +61,13 @@ class BorrowerAddressCreate(BorrowerAddressBase):
     """
     # BorrowerAddressCreate Model
 
-    This model allows you to create a BorrowerAddress object.
+    This model assists to create a BorrowerAddress object.
     """
-
-    pass
 
 
 class BorrowerAddressUpdate(BorrowerAddressBase):
-    pass
+    """
+    # BorrowerAddressUpdate Model
+
+    This model assists to update a BorrowerAddress Object.
+    """
