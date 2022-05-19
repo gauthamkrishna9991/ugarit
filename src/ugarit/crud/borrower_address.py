@@ -1,21 +1,44 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+crud/borrower_address
+
+BorrowerAddress CRUD Module
+
+This module holds all CRUD Operations for BorrowerAddress
+"""
+
+# -- IMPORTS: LIBRARIES
+
+# - Standard Libraries
+# UUID Imports
 from uuid import UUID
+
+# - FastAPI Imports
 from fastapi import HTTPException
+
+# - SQLAlchemy Imports
 from sqlalchemy.orm import Session
 
-from ugarit.models import borrower_address as model
-from ugarit.schemas import borrower_address as schema
 
-# - BorrowerAddress
+# -- IMPORTS: SELF
+
+# - BorrowerAddress Model Import
+from ugarit.models import borrower_address as model
+
+# - BorrowerAddress Schema Import
+from ugarit.schemas import borrower_address as schema
 
 
 # CREATE
 
 
 def create(
-    db: Session, borrower_addr: model.BorrowerAddressCreate
+    db_session: Session, borrower_addr: model.BorrowerAddressCreate
 ) -> model.BorrowerAddress:
     if (
-        db.query(schema.BorrowerAddress)
+        db_session.query(schema.BorrowerAddress)
         .filter(schema.BorrowerAddress.id == borrower_addr.id)
         .first()
         is not None
@@ -31,18 +54,21 @@ def create(
         state=borrower_addr.state,
         zipcode=borrower_addr.zipcode,
     )
-    db.add(new_borrower)
-    db.commit()
-    db.refresh(new_borrower)
+    db_session.add(new_borrower)
+    db_session.commit()
+    db_session.refresh(new_borrower)
     return new_borrower
 
 
 # READ
 
 
-def get_by_id(db: Session, borrower_id: UUID) -> model.BorrowerAddress | None:
+def get_by_id(db_session: Session, borrower_id: UUID) -> model.BorrowerAddress | None:
+    """
+    get_by_id: Get a BorrowerAddress element by ID.
+    """
     return (
-        db.query(schema.BorrowerAddress)
+        db_session.query(schema.BorrowerAddress)
         .filter(schema.BorrowerAddress.id == borrower_id)
         .first()
     )

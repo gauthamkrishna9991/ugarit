@@ -32,9 +32,9 @@ from ugarit.crud import borrower as crud_borrower
 from .base import get_db
 
 
-# - Borrower API Router
-#   /borrowers
-borrower_router = APIRouter(prefix="/borrowers")
+# -- Borrower API Router
+#   /borrower
+borrower_router = APIRouter(prefix="/borrower")
 
 
 # - CREATE /
@@ -71,22 +71,23 @@ def get_by_id(
 
 
 # - PUT /
-@borrower_router.put("/", response_model=models_borrower.Borrower)
+# TODO: Change this to a better HTTP Response Model
+@borrower_router.put("/", response_model=bool)
 def update(
-    borrower: models_borrower.BorrowerUpdate,
-    db_session: Session = Depends(get_db),
-) -> models_borrower.Borrower:
+    borrower_req: models_borrower.BorrowerUpdate, db_session: Session = Depends(get_db)
+) -> bool:
     """
-    PUT <BODY: BorrowerUpdate>
+    UPDATE <BODY: BorrowerUpdate>
 
-    Update a borrower
+    Update a Borrower Object
 
-    This updates the borrower defined by the id.
+    This updates a borrower defined by the ID and returns a status (true or false).
     """
-    return crud_borrower.update(db_session, borrower)
+    return crud_borrower.update(db_session, borrower_req)
 
 
 # - DELETE /
+# TODO: Change this to a better HTTP Response Model
 @borrower_router.delete("/", response_model=bool)
 def delete(
     borrower_to_delete: models_borrower.BorrowerDelete,

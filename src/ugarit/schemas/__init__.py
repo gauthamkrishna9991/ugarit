@@ -1,6 +1,18 @@
-__all__ = ["borrower", "borrower_address", "base"]
+"""
+schemas/__init__
+
+Schemas Init
+
+This is the base schema module.
+"""
+
+# -- ALL IMPORTS
+
+# IMPORTANT: Import and add your models here so that it can be created for the schema.
+__all__ = ["base", "borrower", "borrower_address", "biblio_item", "biblio"]
 
 
-from . import borrower
-from . import borrower_address
-from . import base
+# -- IMPORTS: SELF
+
+# - Borrower, BorrowerAddress, Base Module
+from . import borrower, borrower_address, base, biblio, biblio_item

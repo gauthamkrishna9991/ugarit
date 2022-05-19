@@ -1,5 +1,16 @@
-[MESSAGES CONTROL]
-disable = C0330, C0326
+# Pylint RC File
 
+[MASTER]
+# Pydantic is Binary-compiled so make sure to put it in ignores
+extension-pkg-whitelist=pydantic
+
+
+[MESSAGES CONTROL]
+# Disable the following
+# - wrong-hanging indentation before block
+# - bad-whitespace
+disable=C0330, C0326
+
+# Formatting Modifications
 [format]
-max-line-length = 88
+max-line-length=88

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-src/ugarit/crud/borrower.py
+crud/borrower
 
 Borrower CRUD Operations
 
@@ -21,7 +21,7 @@ from sqlalchemy.orm import Session
 # -- IMPORTS: PACKAGE
 
 # - Borrower Model Import
-from ugarit.models import borrower as borrower_model
+from ugarit.models import borrower as model
 
 # - Borrower Schema Import
 from ugarit.schemas import borrower as borrower_schema
@@ -31,9 +31,7 @@ from ugarit.schemas import borrower_address as borrower_address_schema
 # CREATE
 
 
-def create(
-    db_session: Session, borrower: borrower_model.BorrowerCreate
-) -> borrower_model.Borrower:
+def create(db_session: Session, borrower: model.BorrowerCreate) -> model.Borrower:
     """
     Create a Borrower
 
@@ -54,7 +52,7 @@ def create(
 # READ
 
 
-def get_by_id(db_session: Session, borrower_id: UUID) -> borrower_model.Borrower:
+def get_by_id(db_session: Session, borrower_id: UUID) -> model.Borrower:
     """
     Get Borrower by ID
 
@@ -67,7 +65,7 @@ def get_by_id(db_session: Session, borrower_id: UUID) -> borrower_model.Borrower
     )
 
 
-def get_by_email(db_session: Session, email_id: str) -> borrower_model.Borrower:
+def get_by_email(db_session: Session, email_id: str) -> model.Borrower:
     """
     Get Borrower by Email
 
@@ -83,9 +81,7 @@ def get_by_email(db_session: Session, email_id: str) -> borrower_model.Borrower:
 # UPDATE
 
 
-def update(
-    db_session: Session, borrower: borrower_model.BorrowerUpdate
-) -> borrower_model.Borrower:
+def update(db_session: Session, borrower: model.BorrowerUpdate) -> bool:
     """
     Update Borrower
 

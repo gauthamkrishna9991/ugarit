@@ -1,12 +1,35 @@
+"""
+schema/borrower
+
+Borrower Schema
+
+This holds the schema for Borrower
+"""
+
+# -- IMPORTS: LIBRARIES
+
+# - UUID
 import uuid
 
+# - SQLAlchemy Imports
+# Column + Types Imports
 from sqlalchemy import Column, String, Date
-# from sqlalchemy.orm import relationship
+
+# PostgreSQL-specific UUID Import
 from sqlalchemy.dialects.postgresql import UUID
+
+# -- IMPORTS: SELF
 from ugarit.database import Base
 
 
+# -- SCHEMA
 class Borrower(Base):
+    """
+    Borrower Schema
+
+    This holds SQLAlchemy Schema for Borrower
+    """
+
     __tablename__: str = "borrowers"
 
     # ID of the borrower (UUID type)
@@ -19,5 +42,3 @@ class Borrower(Base):
     last_name = Column(String)
     # Date of Birth
     date_of_birth = Column(Date)
-
-    # address = relationship("BorrowerAddress", backref="borrower")

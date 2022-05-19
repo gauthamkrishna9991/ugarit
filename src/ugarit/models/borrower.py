@@ -1,12 +1,35 @@
-from uuid import UUID
-from pydantic import BaseModel
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+models/borrower
+
+Borrower Models Module
+
+This module holds all Borrower Models.
+"""
+
+# -- IMPORTS: LIBRARIES
+
+# - Standard Library Imports
+
+# DateTime Imports
 from datetime import date
 
-# from ugarit.models.borrower_account import BorrowerAccount
-# from ugarit.models.borrower_address import BorrowerAddress
+# UUID Imports
+from uuid import UUID
+
+# - Pydantic Imports
+from pydantic import BaseModel
 
 
 class BorrowerBase(BaseModel):
+    """
+    # BorrowerBase Model
+
+    This model holds members that are shared across all instances of Borrower.
+    """
+
     email: str
     first_name: str
     last_name: str
@@ -14,6 +37,12 @@ class BorrowerBase(BaseModel):
 
 
 class Borrower(BorrowerBase):
+    """
+    # Borrower Model
+
+    This model is parsed and sent back for Borrower.
+    """
+
     id: UUID
 
     class Config:

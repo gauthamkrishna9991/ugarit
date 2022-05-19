@@ -1,9 +1,5 @@
 {
-    "typescript.disableAutomaticTypeAcquisition": true,
     "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintArgs": [
-        "--load-plugins pylint_pydantic"
-    ],
+    // "python.linting.pylintEnabled": true,
     "python.linting.mypyEnabled": true
 }
