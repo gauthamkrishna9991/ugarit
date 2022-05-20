@@ -5,7 +5,7 @@ This holds all API Objects
 """
 
 # Objects Exported Publically
-__all__ = ["base"]
+__all__ = ["base", "api_router"]
 
 
 # -- IMPORTS: LIBRARIES

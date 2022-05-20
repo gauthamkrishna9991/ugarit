@@ -22,7 +22,9 @@ from starlette.status import HTTP_409_CONFLICT, HTTP_422_UNPROCESSABLE_ENTITY
 from fastapi import HTTPException
 
 # - SQLAlchemy Imports
+# ORM Session Import
 from sqlalchemy.orm import Session
+# IntegrityError Import
 from sqlalchemy.exc import IntegrityError
 
 
@@ -111,3 +113,32 @@ def get_by_id(db_session: Session, borrower_id: UUID) -> model.BorrowerAddress |
         .filter(schema.BorrowerAddress.id == borrower_id)
         .first()
     )
+
+
+# UPDATE
+
+
+def update(db_session: Session, borrower_address: model.BorrowerAddressUpdate) -> bool:
+    """
+    update
+
+    Update a BorrowerAddress element given new data.
+    """
+    update_result = (
+        db_session.query(schema.BorrowerAddress)
+        .filter(schema.BorrowerAddress.id == borrower_address.id)
+        .update(
+            {
+                schema.BorrowerAddress.address: borrower_address.address,
+                schema.BorrowerAddress.address2: borrower_address.address2,
+                schema.BorrowerAddress.city: borrower_address.city,
+                schema.BorrowerAddress.state: borrower_address.state,
+                schema.BorrowerAddress.country: borrower_address.country,
+                schema.BorrowerAddress.zipcode: borrower_address.zipcode,
+            },
+            synchronize_session=False,
+        )
+    )
+    if update_result == 1:
+        db_session.commit()
+    return update_result == 1

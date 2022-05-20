@@ -21,7 +21,7 @@ from sqlalchemy.dialects.postgresql import UUID
 # -- IMPORTS: SELF
 
 # - Database Base Imports
-from ugarit.database import Base
+from .base import Base
 
 
 # -- SCHEMA

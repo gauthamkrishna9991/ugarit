@@ -11,8 +11,8 @@ This module holds all models
 
 # -- MODULE EXPORTS
 
-__all__ = ["borrower", "borrower_address", "book_item"]
+__all__ = ["book", "book_item", "borrower", "borrower_address"]
 
-# -- VARIABLE IMPORTS
+# -- MODULE IMPORTS
 
-from . import book_item, borrower, borrower_address
+from . import book, book_item, borrower, borrower_address

@@ -9,6 +9,10 @@ This holds the root FastAPI App.
 
 # -- IMPORTS: LIBRARIES
 
+# - Standard Library Imports
+# Logging Import
+import logging
+
 # - FastAPI Imports
 from fastapi import FastAPI
 
@@ -21,13 +25,26 @@ from ugarit.api import api_router
 from ugarit.config import ServerConfig
 
 
-# -- INITIALIZE ROUTER
-app = FastAPI()
+# -- INITIALIZE APP
 
-# -- Include API Router
-app.include_router(api_router)
+app = FastAPI(title="Ugarit")
+
+# -- SET CONFIGURATION
 
 config = ServerConfig.cli_parse({"debug": app.debug})
+
+# -- INITIALIZE LOGGER
+
+logging.basicConfig(
+    filename=ServerConfig.logfile,
+    format="%(levelname)s %(asctime)s %(pathname)s %(message)s",
+    datefmt="%Y-%m-%d %I:%M:%S %p",
+    encoding="utf-8",
+)
+
+# -- Include API Router
+
+app.include_router(api_router)
 
 
 @app.get("/")

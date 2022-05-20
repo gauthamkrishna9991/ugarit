@@ -17,12 +17,6 @@ from ugarit import schemas
 from ugarit.config import ServerConfig
 from ugarit.database import SessionLocal, engine
 
-logging.basicConfig(
-    filename=ServerConfig.logfile,
-    format="%(asctime)s %(pathname)s %(message)s",
-    datefmt="%Y-%m-%d %I:%M:%S %p",
-    encoding="utf-8",
-)
 
 logger = logging.getLogger()
 

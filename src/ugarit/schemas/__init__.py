@@ -4,18 +4,18 @@
 """
 schemas/__init__
 
-Schemas Init
+Schemas Module
 
-This is the base schema module.
+This module holds all schemas.
 """
 
 # -- ALL IMPORTS
 
 # IMPORTANT: Import and add your models here so that it can be created for the schema.
-__all__ = ["base", "borrower", "borrower_address", "book_item", "book"]
+__all__ = ["base", "book", "book_item", "borrower", "borrower_address"]
 
 
 # -- IMPORTS: SELF
 
 # - Borrower, BorrowerAddress, Base Module
-from . import book, book_item, borrower, borrower_address, base
+from . import base, book, book_item, borrower, borrower_address

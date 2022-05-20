@@ -70,3 +70,20 @@ def get_by_id(
     Return a BorrowerAddress Object, provided it's ID.
     """
     return crud.get_by_id(db_session, borrower_id)
+
+
+# UPDATE
+
+
+@borrower_address_router.put("/", response_model=bool)
+def update(
+    borrower_address: model.BorrowerAddressUpdate, db_session: Session = Depends(get_db)
+) -> bool:
+    """
+    PUT /
+
+    Return status of update of BorrowerAddress Object
+
+    NOTE: borrower field cannot be updated.
+    """
+    return crud.update(db_session, borrower_address)

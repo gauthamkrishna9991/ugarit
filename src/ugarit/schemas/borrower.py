@@ -22,7 +22,7 @@ from sqlalchemy import Column, String, Date
 from sqlalchemy.dialects.postgresql import UUID
 
 # -- IMPORTS: SELF
-from ugarit.database import Base
+from .base import Base
 
 
 # -- SCHEMA
