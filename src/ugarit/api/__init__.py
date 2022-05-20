@@ -24,8 +24,11 @@ from . import borrower
 # - BorrowerAddress API Router
 from . import borrower_address
 
-# - BiblioItem API Router
-from . import biblio_item
+# - BookItem API Router
+from . import book_item
+
+# - Book API Router
+from . import book
 
 # - Inititalize API Router
 api_router = APIRouter(prefix="/api")
@@ -36,5 +39,8 @@ api_router.include_router(borrower.borrower_router)
 # - Include BorrowerAddress Router
 api_router.include_router(borrower_address.borrower_address_router)
 
-# - Include BiblioItem Router
-api_router.include_router(biblio_item.biblio_item_router)
+# - Include Book Router
+api_router.include_router(book.book_router)
+
+# - Include BookItem Router
+api_router.include_router(book_item.book_item_router)

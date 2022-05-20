@@ -25,7 +25,7 @@ from sqlalchemy.orm import Session
 from ugarit.models import borrower as model
 
 # - Borrower Schema Import
-from ugarit.schemas import borrower as borrower_schema
+from ugarit.schemas import borrower as schema
 from ugarit.schemas import borrower_address as borrower_address_schema
 
 
@@ -38,7 +38,7 @@ def create(db_session: Session, borrower: model.BorrowerCreate) -> model.Borrowe
 
     This function creates a borrower from a given BorrowerCreate Model.
     """
-    new_borrower = borrower_schema.Borrower(
+    new_borrower = schema.Borrower(
         email=borrower.email,
         first_name=borrower.first_name,
         last_name=borrower.last_name,
@@ -60,8 +60,8 @@ def get_by_id(db_session: Session, borrower_id: UUID) -> model.Borrower:
     This function gets a borrower from a given Borrower ID as UUID.
     """
     return (
-        db_session.query(borrower_schema.Borrower)
-        .filter(borrower_schema.Borrower.id == borrower_id)
+        db_session.query(schema.Borrower)
+        .filter(schema.Borrower.id == borrower_id)
         .first()
     )
 
@@ -73,8 +73,8 @@ def get_by_email(db_session: Session, email_id: str) -> model.Borrower:
     This function gets a borrower from a given Email ID.
     """
     return (
-        db_session.query(borrower_schema.Borrower)
-        .filter(borrower_schema.Borrower.email == email_id)
+        db_session.query(schema.Borrower)
+        .filter(schema.Borrower.email == email_id)
         .first()
     )
 
@@ -89,14 +89,14 @@ def update(db_session: Session, borrower: model.BorrowerUpdate) -> bool:
     Update a Borrower given a BorrowerUpdate Model.
     """
     update_result = (
-        db_session.query(borrower_schema.Borrower)
-        .filter(borrower_schema.Borrower.id == borrower.id)
+        db_session.query(schema.Borrower)
+        .filter(schema.Borrower.id == borrower.id)
         .update(
             {
-                borrower_schema.Borrower.email: borrower.email,
-                borrower_schema.Borrower.first_name: borrower.first_name,
-                borrower_schema.Borrower.last_name: borrower.last_name,
-                borrower_schema.Borrower.date_of_birth: borrower.date_of_birth,
+                schema.Borrower.email: borrower.email,
+                schema.Borrower.first_name: borrower.first_name,
+                schema.Borrower.last_name: borrower.last_name,
+                schema.Borrower.date_of_birth: borrower.date_of_birth,
             },
             synchronize_session=False,
         )
@@ -115,20 +115,25 @@ def delete(db_session: Session, borrower_id: UUID) -> bool:
 
     Delete a borrower given a Borrower ID as UUID.
     """
+    # Since Address references a Borrower Object, delete the Address first.
     delete_address_result = (
         db_session.query(borrower_address_schema.BorrowerAddress)
         .filter(borrower_address_schema.BorrowerAddress.id == borrower_id)
         .delete()
         == 1
     )
+    # If deleted, commit the changes.
     if delete_address_result:
         db_session.commit()
+    # Delete the Borrower.
     delete_result = (
-        db_session.query(borrower_schema.Borrower)
-        .filter(borrower_schema.Borrower.id == borrower_id)
+        db_session.query(schema.Borrower)
+        .filter(schema.Borrower.id == borrower_id)
         .delete()
         == 1
     )
+    # If the result is deleted, then commit the changes.
     if delete_result == 1:
         db_session.commit()
+    # Send back deletion status.
     return delete_result == 1

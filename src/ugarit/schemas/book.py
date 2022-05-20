@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
-schemas/biblio
+schemas/book
 
-Biblio Schema
+Book Schema
 
-This holds the schema required for Biblio.
+This holds the schema required for Book.
 """
 
 # -- IMPORTS: LIBRARIES
@@ -27,18 +30,26 @@ from ugarit.database import Base
 
 
 # pylint: disable=too-few-public-methods
-class Biblio(Base):
+class Book(Base):
     """
-    Biblio Schema
+    Book Schema
 
-    This holds the SQLAlchemy Schema for Biblio
+    This holds the SQLAlchemy Schema for Book
     """
 
-    __tablename__ = "biblios"
+    __tablename__ = "books"
 
     # ID
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    # Author
+    author = Column(String)
     # Title
     title = Column(String)
     # Subtitle
     subtitle = Column(String)
+    # Medium
+    medium = Column(String)
+    # Part Number
+    part_number = Column(String)
+    # Part Name
+    part_name = Column(String)

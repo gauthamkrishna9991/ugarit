@@ -62,11 +62,11 @@ def create(
 
 @borrower_address_router.get("/{borrower_id}", response_model=model.BorrowerAddress)
 def get_by_id(
-    borrower_id: str, db_session: Session = Depends(get_db)
+    borrower_id: UUID, db_session: Session = Depends(get_db)
 ) -> model.BorrowerAddress | None:
     """
     GET /{borrower_id:uuid}
 
     Return a BorrowerAddress Object, provided it's ID.
     """
-    return crud.get_by_id(db_session, UUID(borrower_id))
+    return crud.get_by_id(db_session, borrower_id)

@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-models/biblio_item
+models/book_item
 
-BiblioItem Models Module
+BookItem Models Module
 
-This module has all BiblioItem HTTP Models.
+This module has all BookItem HTTP Models.
 """
 
 # -- IMPORTS: LIBRARIES
@@ -25,13 +25,15 @@ from pydantic import BaseModel
 # -- MODELS
 
 
-class BiblioItemBase(BaseModel):
+class BookItemBase(BaseModel):
     """
-    BiblioItem Base Model
+    BookItem Base Model
 
-    This holds HTTP Model for BiblioItem.
+    This holds HTTP Model for BookItem.
     """
 
+    # - Book ID
+    book: Optional[UUID]
     # - ISBN Number, for Books
     isbn: Optional[str]
     # - ISSN Number, for Periodicals
@@ -44,11 +46,11 @@ class BiblioItemBase(BaseModel):
     publisher_code: Optional[str]
 
 
-class BiblioItem(BiblioItemBase):
+class BookItem(BookItemBase):
     """
-    # BiblioItem Model
+    # BookItem Model
 
-    This model is parsed and sent back for BiblioItem.
+    This model is parsed and sent back for BookItem.
     """
 
     # - ID
@@ -57,7 +59,7 @@ class BiblioItem(BiblioItemBase):
     # pylint: disable=too-few-public-methods
     class Config:
         """
-        Config for BiblioItem
+        Config for BookItem
 
         Enable ORM Mode.
         """
@@ -65,21 +67,21 @@ class BiblioItem(BiblioItemBase):
         orm_mode = True
 
 
-class BiblioItemCreate(BiblioItemBase):
+class BookItemCreate(BookItemBase):
     """
-    # BiblioItemCreate Model
+    # BookItemCreate Model
 
     *Type*: **Response**
 
-    This is used to create BiblioItem from given HTTP Request.
+    This is used to create BookItem from given HTTP Request.
     """
 
 
-class BiblioItemUpdate(BiblioItemBase):
+class BookItemUpdate(BookItemBase):
     """
-    # BiblioItemUpdate Model
+    # BookItemUpdate Model
 
-    This is used to update a BiblioItem object, given a valid UUID.
+    This is used to update a BookItem object, given a valid UUID.
     """
 
     # - ID

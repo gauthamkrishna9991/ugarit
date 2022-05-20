@@ -15,8 +15,10 @@ This module sets up database for the App.
 
 # SQLAlchemy Engine Import
 from sqlalchemy import create_engine
+
 # SQLAlchemy Declarative Base Import
 from sqlalchemy.ext.declarative import declarative_base
+
 # SQLAlchemy SessionMaker
 from sqlalchemy.orm import sessionmaker
 

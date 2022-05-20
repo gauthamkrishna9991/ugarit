@@ -1,9 +1,9 @@
 """
-schemas/biblio_item
+schemas/book_item
 
-BiblioItem Schema
+BookItem Schema
 
-This holds the schema required for BilbioItem
+This holds the schema required for BookItem
 """
 
 # -- IMPORTS: LIBRARIES
@@ -13,7 +13,7 @@ import uuid
 
 # - SQLAlchemy
 # Column + Types Imports
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, ForeignKey
 
 # PostgreSQL-specific UUID
 from sqlalchemy.dialects.postgresql import UUID
@@ -28,18 +28,20 @@ from ugarit.database import Base
 
 
 # pylint: disable=too-few-public-methods
-class BiblioItem(Base):
+class BookItem(Base):
     """
-    BiblioItem Schema
+    BookItem Schema
 
-    This holds SQLAlchemy Schema for BiblioItem
+    This holds SQLAlchemy Schema for BookItem
     """
 
     # - Table Name
-    __tablename__: str = "biblio_items"
+    __tablename__: str = "book_items"
 
     # - ID
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    # - Book Element
+    book = Column(UUID(as_uuid=True), ForeignKey("books.id"))
     # - ISBN Number, for Books
     isbn = Column(String, index=True)
     # - ISSN Number for Periodicals

@@ -25,7 +25,7 @@ class BorrowerAddressBase(BaseModel):
     BorrowerAddress Base Model
     """
 
-    # - ID for the object, parsed as UUID.
+    # - id          : UUID-based ID
     id: UUID
     # - address     : Address Line 1
     address: str

@@ -11,8 +11,8 @@ This holds all modules related to CRUD Operations
 
 # -- ALL EXPORTS
 
-__all__ = ["borrower", "biblio_item", "borrower_address"]
+__all__ = ["borrower", "book_item", "borrower_address"]
 
 # -- VARIABLE IMPORTS
 
-from . import borrower, biblio_item, borrower_address
+from . import book_item, borrower, borrower_address

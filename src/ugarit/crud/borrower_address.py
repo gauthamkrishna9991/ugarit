@@ -16,13 +16,14 @@ This module holds all CRUD Operations for BorrowerAddress
 from uuid import UUID
 
 # - Starlette Imports
-from starlette.status import HTTP_409_CONFLICT
+from starlette.status import HTTP_409_CONFLICT, HTTP_422_UNPROCESSABLE_ENTITY
 
 # - FastAPI Imports
 from fastapi import HTTPException
 
 # - SQLAlchemy Imports
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 
 # -- IMPORTS: SELF
@@ -48,25 +49,33 @@ def create(
 
     Create a BorrowerAddress Object, given BorrowerAddressCreate model.
     """
+    # Check whether a borrower associated with given ID does not exist.
     if (
         db_session.query(borrower_schema.Borrower)
         .filter(borrower_schema.Borrower.id == borrower_addr.id)
         .first()
         is None
     ):
+        # If a borrower exists, return a 409 Conflict Error detailing the error.
         raise HTTPException(
             HTTP_409_CONFLICT,
             f"Borrower with ID {borrower_addr.id} does not exist.",
         )
+    # Check whether address for the given ID exists, if so, then we can't "create"
+    # this address object.
     if (
         db_session.query(schema.BorrowerAddress)
         .filter(schema.BorrowerAddress.id == borrower_addr.id)
         .first()
         is not None
     ):
+        # If there is an existing address for the given ID, return a 422 Unprocessable
+        # Entity Error detailing the error.
         raise HTTPException(
-            422, f"Address associated with borrower {borrower_addr.id} exists."
+            HTTP_422_UNPROCESSABLE_ENTITY,
+            f"Address associated with borrower {borrower_addr.id} exists.",
         )
+    # If all the above checks are met, create the object.
     new_borrower_addr = schema.BorrowerAddress(
         id=borrower_addr.id,
         address=borrower_addr.address,
@@ -76,9 +85,15 @@ def create(
         country=borrower_addr.country,
         zipcode=borrower_addr.zipcode,
     )
-    db_session.add(new_borrower_addr)
-    db_session.commit()
-    db_session.refresh(new_borrower_addr)
+    try:
+        db_session.add(new_borrower_addr)
+        db_session.commit()
+        db_session.refresh(new_borrower_addr)
+    except IntegrityError as integrity_err:
+        raise HTTPException(
+            HTTP_409_CONFLICT,
+            f"Address associated with borrower {borrower_addr.id} exists.",
+        ) from integrity_err
     return new_borrower_addr
 
 
