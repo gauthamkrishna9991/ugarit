@@ -56,6 +56,7 @@ class Book(BookBase):
 
     id: UUID
 
+    # pylint: disable=too-few-public-methods
     class Config:
         """
         Configuration for Book Model

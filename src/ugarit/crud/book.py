@@ -82,7 +82,8 @@ def update(db_session: Session, book: model.BookUpdate) -> bool:
                 schema.Book.medium: book.medium,
                 schema.Book.part_number: book.part_number,
                 schema.Book.part_name: book.part_name,
-            }
+            },
+            synchronize_session=False
         )
     )
     if update_result == 1:
@@ -103,7 +104,6 @@ def delete(db_session: Session, book: model.BookDelete) -> bool:
     delete_result = (
         db_session.query(schema.Book).filter(schema.Book.id == book.id).delete()
     )
-    print(delete_result)
     if delete_result == 1:
         db_session.commit()
     return delete_result == 1

@@ -90,7 +90,7 @@ def update(db_session: Session, book_item: model.BookItemUpdate) -> model.BookIt
                 schema.BookItem.publication_year: book_item.publication_year,
                 schema.BookItem.publisher_code: book_item.publisher_code,
             },
-            synchronize_session=True,
+            synchronize_session=False,
         )
     )
     if update_result == 1:

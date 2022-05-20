@@ -24,6 +24,7 @@ from fastapi import HTTPException
 # - SQLAlchemy Imports
 # ORM Session Import
 from sqlalchemy.orm import Session
+
 # IntegrityError Import
 from sqlalchemy.exc import IntegrityError
 
@@ -124,6 +125,8 @@ def update(db_session: Session, borrower_address: model.BorrowerAddressUpdate) -
 
     Update a BorrowerAddress element given new data.
     """
+    # Run the update method, but make sure to NOT update borrower.
+    # The borrower is considered to be not changeable for a BorrowerAddress.
     update_result = (
         db_session.query(schema.BorrowerAddress)
         .filter(schema.BorrowerAddress.id == borrower_address.id)
