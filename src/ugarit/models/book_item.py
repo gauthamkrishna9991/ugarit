@@ -12,6 +12,9 @@ This module has all BookItem HTTP Models.
 # -- IMPORTS: LIBRARIES
 
 # - Standard Library Imports
+# Date-Time
+from datetime import date, datetime
+
 # Typing Imports: Optional
 from typing import Optional
 
@@ -55,6 +58,10 @@ class BookItem(BookItemBase):
 
     # - ID
     id: UUID
+    # - Last Updated
+    last_updated: datetime
+    # - Created
+    created: date
 
     # pylint: disable=too-few-public-methods
     class Config:

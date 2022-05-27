@@ -16,7 +16,18 @@ This module holds all CRUD Operations for Book.
 from uuid import UUID
 
 # - SQLAlchemy Imports
+# Session Import
 from sqlalchemy.orm import Session
+# Integrity Error
+from sqlalchemy.exc import IntegrityError
+
+# - FastAPI Imports
+# FastAPI Exceptions
+from fastapi.exceptions import HTTPException
+
+# - Starlette Imports
+# StatusCode Imports
+from starlette.status import HTTP_409_CONFLICT
 
 # -- IMPORTS: SELF
 
@@ -101,9 +112,16 @@ def delete(db_session: Session, book: model.BookDelete) -> bool:
     This function deletes a book given it's ID.
     """
     # TODO: Implement referential errors as Books can have related Book Items.
-    delete_result = (
-        db_session.query(schema.Book).filter(schema.Book.id == book.id).delete()
-    )
-    if delete_result == 1:
-        db_session.commit()
-    return delete_result == 1
+    try:
+        delete_result = (
+            db_session.query(schema.Book).filter(schema.Book.id == book.id).delete()
+        )
+        if delete_result == 1:
+            db_session.commit()
+        return delete_result == 1
+    except IntegrityError as integrity_err:
+        print(integrity_err.detail)
+        raise HTTPException(
+            HTTP_409_CONFLICT,
+            f"There are book items registered to the ID '{book.id}'."
+        )

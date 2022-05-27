@@ -13,7 +13,7 @@ import uuid
 
 # - SQLAlchemy
 # Column + Types Imports
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, DateTime
 
 # PostgreSQL-specific UUID
 from sqlalchemy.dialects.postgresql import UUID
@@ -41,7 +41,7 @@ class BookItem(Base):
     # - ID
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     # - Book Element
-    book = Column(UUID(as_uuid=True), ForeignKey("books.id"))
+    book = Column(UUID(as_uuid=True), ForeignKey("books.id"), nullable=False)
     # - ISBN Number, for Books
     isbn = Column(String, index=True)
     # - ISSN Number for Periodicals
@@ -52,3 +52,7 @@ class BookItem(Base):
     publication_year = Column(String, index=True)
     # - Publisher Code
     publisher_code = Column(String, index=True)
+    # - Last Updated
+    last_updated = Column(DateTime, index=True, nullable=False)
+    # - Created Date
+    created = Column(DateTime, index=True, nullable=False)

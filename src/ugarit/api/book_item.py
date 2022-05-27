@@ -78,10 +78,10 @@ def create(
 # - UPDATE
 
 
-@book_item_router.put("/", response_model=model.BookItem)
+@book_item_router.put("/", response_model=bool)
 def update(
     book_item: model.BookItemUpdate, db_session: Session = Depends(get_db)
-) -> model.BookItem:
+) -> bool:
     """
     PUT /
 
